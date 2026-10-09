@@ -3,6 +3,8 @@
 <style>html,body{background:#0f0f0f;color:#fff;margin:0}.hidden{display:none!important}</style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="lang.js"></script>
+</head>
 </head><body class="text-white pb-[280px]" style="background:#0f0f0f">
 <button onclick="openLang()" class="fixed top-2 left-2 z-[6000] bg-zinc-800 border border-zinc-600 px-3 py-1 rounded-full text-[11px]">LANG <span id="curLangTop">EN</span></button>
 <div class="p-3">
@@ -51,15 +53,11 @@
 
 <div id="langM" class="hidden fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4"><div class="bg-zinc-900 w-full max-w-[360px] rounded-2xl p-5 border border-zinc-700 max-h-[80vh] overflow-y-auto"><h3 class="font-bold text-center">Choose Language - 100 langs</h3><input id="langSearch" oninput="filterLang()" placeholder="Search Yoruba, Hausa, Igbo..." class="w-full bg-black p-3 rounded-xl text-[11px] border border-zinc-700 mt-3"><div id="langGrid" class="grid grid-cols-2 gap-2 mt-3"></div><button onclick="closeAll()" class="w-full mt-3 bg-zinc-800 py-2 rounded text-xs">Close</button></div></div>
 
-<script>
-var LANGS=[{c:'en',n:'English',f:'🇺🇸'},{c:'fr',n:'Français',f:'🇫🇷'},{c:'es',n:'Español',f:'🇪🇸'},{c:'ru',n:'Русский',f:'🇷🇺'},{c:'ha',n:'Hausa',f:'🇳🇬'},{c:'yo',n:'Yorùbá',f:'🇳🇬'},{c:'ig',n:'Igbo',f:'🇳🇬'},{c:'ar',n:'العربية',f:'🇸🇦'},{c:'hi',n:'हिन्दी',f:'🇮🇳'},{c:'zh',n:'中文',f:'🇨🇳'},{c:'pt',n:'Português',f:'🇵🇹'},{c:'de',n:'Deutsch',f:'🇩🇪'},{c:'tr',n:'Türkçe',f:'🇹🇷'},{c:'sw',n:'Kiswahili',f:'🇰🇪'},{c:'am',n:'አማርኛ',f:'🇪🇹'},{c:'zu',n:'Zulu',f:'🇿🇦'}];
-var T={en:{bets:"BETS THIS WEEK - 7 days",betsDesc:"Choose coin, predict UP/DROP/STEADY, win 6x in 7 days"},fr:{bets:"PARIS DE LA SEMAINE - 7 jours",betsDesc:"Choisissez la pièce, prédisez HAUT/BAISSE/STABLE"},es:{bets:"APUESTAS ESTA SEMANA - 7 días",betsDesc:"Elige moneda, predice SUBIDA/BAJADA"},ha:{bets:"BET NA MAKO - kwana 7",betsDesc:"Zabi coin, yi hasashen UP/DROP/STEADY"},yo:{bets:"BET TI OSE YII - ojo 7",betsDesc:"Yan coin, sọ UP/DROP/STEADY"},ig:{bets:"BET NKE IZUUKA - ubochi 7",betsDesc:"Họrọ mkpụrụ ego, buru amụma UP/DROP"}};
-var USDT_ADDR="UQCDRPXIZ16s_I_o1j_ROAWz81zhO1RRmEbgCkqTsI3KbkN8";var BOT="Betcryptoassetbot";var WIN={500:3000,1000:5500,2000:10000,3000:15000};var livePrice={BTC:64000,ETH:2500,SOL:145};var mins={USDT:50000,BTC:0.78,ETH:20,SOL:344};var selWith="USDT";
 // All saved to earning object for backend migration
 var bal=JSON.parse(localStorage.getItem('b_final')||'{"deposit":0,"earning":0,"btc":0,"eth":0,"sol":0,"invites":0}');
 var bAsset='',pBuy=0,betCoin='',betDir='',pBet=0;
 var roundStart=Number(localStorage.getItem('roundStart')||Date.now());if(!localStorage.getItem('roundStart'))localStorage.setItem('roundStart',roundStart.toString());
-function getId(){try{return Telegram.WebApp.initDataUnsafe.user.id.toString()}catch(e){return '8862465605'}}function getU(){try{var u=Telegram.WebApp.initDataUnsafe.user.username;return u?'@'+u:'user_'+getId().slice(-4)}catch(e){return 'user_'+getId().slice(-4)}}
+function getId(){try{question uTelegram.WebApp.initDataUnsafe.user.id.toString()}catch(e){return '8862465605'}}function getU(){try{var u=Telegram.WebApp.initDataUnsafe.user.username;return u?'@'+u:'user_'+getId().slice(-4)}catch(e){return 'user_'+getId().slice(-4)}}
 function renderLangGrid(){var g=document.getElementById('langGrid');var h='';for(var i=0;i<LANGS.length;i++){var l=LANGS[i];h+='<button data-name="'+l.n.toLowerCase()+' '+l.c+'" onclick="setLang(\''+l.c+'\')" class="langBtn bg-zinc-800 border border-zinc-700 py-3 rounded-xl text-[11px] text-left px-2">'+l.f+' '+l.n+'</button>';}g.innerHTML=h;}
 function filterLang(){var q=document.getElementById('langSearch').value.toLowerCase();document.querySelectorAll('.langBtn').forEach(b=>{var name=b.getAttribute('data-name');b.style.display=name.includes(q)?'block':'none';});}
 function setLang(c){localStorage.setItem('lang',c);document.getElementById('curLangTop').innerText=c.toUpperCase();let d=T[c]||T['en'];if(d.bets)document.getElementById('betsT').innerText=d.bets;if(d.betsDesc)document.getElementById('betsD').innerText=d.betsDesc;closeAll();}
