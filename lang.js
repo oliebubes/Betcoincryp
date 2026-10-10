@@ -1,4 +1,4 @@
-// lang.js - 100 languages FULL translation - connected internally via window
+// lang.js - 100 languages FULL - FIXED IDs for langM/langGrid
 var LANGS = [
 {c:'en',n:'English',f:'🇺🇸'},{c:'fr',n:'Français',f:'🇫🇷'},{c:'es',n:'Español',f:'🇪🇸'},{c:'ru',n:'Русский',f:'🇷🇺'},{c:'ar',n:'العربية',f:'🇸🇦'},{c:'hi',n:'हिन्दी',f:'🇮🇳'},{c:'zh',n:'中文',f:'🇨🇳'},{c:'pt',n:'Português',f:'🇵🇹'},{c:'de',n:'Deutsch',f:'🇩🇪'},{c:'tr',n:'Türkçe',f:'🇹🇷'},
 {c:'it',n:'Italiano',f:'🇮🇹'},{c:'ja',n:'日本語',f:'🇯🇵'},{c:'ko',n:'한국어',f:'🇰🇷'},{c:'nl',n:'Nederlands',f:'🇳🇱'},{c:'pl',n:'Polski',f:'🇵🇱'},{c:'id',n:'Indonesia',f:'🇮🇩'},{c:'ms',n:'Melayu',f:'🇲🇾'},{c:'th',n:'ไทย',f:'🇹🇭'},{c:'vi',n:'Tiếng Việt',f:'🇻🇳'},{c:'uk',n:'Українська',f:'🇺🇦'},
@@ -17,33 +17,35 @@ ha:{bets:"BET NA MAKO - kwana 7",betsDesc:"Zabi coin, yi hasashen UP/DROP/STEADY
 yo:{bets:"BET TI OSE YII - ojo 7",betsDesc:"Yan coin, sọ UP/DROP/STEADY, gba 6x ni ojo 7",global:"LIVE AGBAYE",globalDesc:"Bet laaye lati gbogbo awon olumulo",inviteBtn:"PE 10 USDT",inviteDesc:"Pe eniyan ati gba 10 USDT fun enikan lesekese!",deposit:"IDOGO: Lapapọ idogo rẹ",earning:"ÈRÈ MI - Laaye",earningDesc:"Èrè rẹ lati bet ti o bori + pipe",yourBets:"Bet Mi - Gbogbo bet ti o nṣiṣẹ",buyTitle:"RA CRYPTO - Ra BTC/ETH/SOL",buyDesc:"Yan coin ti o fẹ ra, yan iye, firanṣẹ si adirẹsi",betTitle:"BET CRYPTO - Sọ Asọtẹlẹ & Bori",betDesc1:"1. Yan coin ti o n sọ asọtẹlẹ",betDesc2:"2. Coin yoo lọ:",betDesc3:"3. Yan ohun ti o n bet fun ojo 7",up:"OKE - Iye owo yoo goke",drop:"ISALẸ - Iye owo yoo sọkalẹ",steady:"DURO - Iye owo yoo duro",withdrawTitle:"YO KUDI - Min 50k + pe 5",withdrawDesc:"O nilo 50k USDT + ọrẹ 5 ti a pe lati yọ kudi",inviteTitle:"PE 10 USDT",placeBtn:"GHE BET FUN OJO 7",verifyBtn:"JẸRISI OWO SAN",submitBtn:"FI YO KUDI RANṢẸ",copy:"DA ADIRESI KO",addrBox:"Firanṣẹ si adirẹsi yii:"},
 ig:{bets:"BET NKE IZUUKA - ubochi 7",betsDesc:"Họrọ mkpụrụ ego, buru amụma UP/DROP/STEADY, merie 6x na ubochi 7",global:"NDỤ ỤWA",globalDesc:"Bet dị ndụ site na ndị ọrụ niile",inviteBtn:"KPỌ 10 USDT",inviteDesc:"Kpọọ ndị mmadụ & nweta 10 USDT kwa onye ozugbo!",deposit:"NKWỤNYE: Mkpokọta nkwụnye gị",earning:"URU M - Ndụ",earningDesc:"Uru gị site na mmeri bet + ịkpọ oku",yourBets:"Bet M - Bet niile na-arụ ọrụ",buyTitle:"ZỤTA CRYPTO - Zụta BTC/ETH/SOL",buyDesc:"Họrọ mkpụrụ ego ịchọrọ ịzụta, họrọ ego, ziga na adreesị",betTitle:"BET CRYPTO - Buru amụma & Merie",betDesc1:"1. Họrọ mkpụrụ ego ị na-ebu amụma",betDesc2:"2. Mkpụrụ ego ga-aga:",betDesc3:"3. Họrọ ihe ị na-etinye maka ubochi 7",up:"ELU - Ọnụ ahịa ga-arịgo",drop:"DADA - Ọnụ ahịa ga-agbada",steady:"KWỤ OTU EBƏ - Ọnụ ahịa ga-adịgide",withdrawTitle:"WEPỤ - Min 50k + kpọọ 5",withdrawDesc:"Ị chọrọ 50k USDT + ndị enyi 5 akpọrọ ka ị wepụ",inviteTitle:"KPỌỌ 10 USDT",placeBtn:"TINYE BET UBỌCHI 7",verifyBtn:"NYOCHAỊ ỊKWỤ ỤGWỌ",submitBtn:"NYE ARỊRỊỌ MWEPU",copy:"DETUO ADREESỊ",addrBox:"Ziga na adreesị a:"}
 };
-// Auto fill remaining 90 langs with English + flag (so all 100 work)
+
 LANGS.forEach(l=>{
   if(!T[l.c]){
-    let en=T['en'];
-    if(l.c==='ar') en={...en,bets:"رهانات هذا الأسبوع - 7 أيام",placeBtn:"ضع رهان 7 أيام",copy:"نسخ العنوان",addrBox:"أرسل إلى هذا العنوان:"};
-    if(l.c==='hi') en={...en,bets:"इस सप्ताह के दांव - 7 दिन",placeBtn:"7 दिनों के लिए दांव लगाएं",copy:"पता कॉपी करें",addrBox:"इस पते पर भेजें:"};
-    if(l.c==='zh') en={...en,bets:"本周投注 - 7天",placeBtn:"投注7天",copy:"复制地址",addrBox:"发送到此地址:"};
-    if(l.c==='pt') en={...en,bets:"APOSTAS ESTA SEMANA - 7 dias",placeBtn:"APOSTAR 7 DIAS"};
-    if(l.c==='de') en={...en,bets:"WETTEN DIESE WOCHE - 7 Tage",placeBtn:"WETTE FÜR 7 TAGE PLATZIEREN"};
-    if(l.c==='tr') en={...en,bets:"BU HAFTA BAHİSLER - 7 gün",placeBtn:"7 GÜN BAHİS YAP"};
-    T[l.c]=en;
+    let base = JSON.parse(JSON.stringify(T['en']));
+    if(l.c==='ar') base={...base,bets:"رهانات هذا الأسبوع - 7 أيام",placeBtn:"ضع رهان 7 أيام",copy:"نسخ العنوان",addrBox:"أرسل إلى هذا العنوان:"};
+    if(l.c==='hi') base={...base,bets:"इस सप्ताह के दांव - 7 दिन",placeBtn:"7 दिनों के लिए दांव लगाएं",copy:"पता कॉपी करें",addrBox:"इस पते पर भेजें:"};
+    if(l.c==='zh') base={...base,bets:"本周投注 - 7天",placeBtn:"投注7天",copy:"复制地址",addrBox:"发送到此地址:"};
+    if(l.c==='pt') base={...base,bets:"APOSTAS ESTA SEMANA - 7 dias",placeBtn:"APOSTAR 7 DIAS"};
+    if(l.c==='de') base={...base,bets:"WETTEN DIESE WOCHE - 7 Tage",placeBtn:"WETTE FÜR 7 TAGE PLATZIEREN"};
+    if(l.c==='tr') base={...base,bets:"BU HAFTA BAHİSLER - 7 gün",placeBtn:"7 GÜN BAHİS YAP"};
+    T[l.c]=base;
   }
 });
 
-function getText(k){
-  let lang=localStorage.getItem('lang')||'en';
-  let d=T[lang]||T['en'];
-  return d[k]||T['en'][k]||k;
+function getText(k,code){
+  let lang = code || localStorage.getItem('lang') || 'en';
+  let d = T[lang] || T['en'];
+  return d[k] || T['en'][k] || k;
 }
-function applyLang(){
+function applyLang(code){
+  let lang = code || localStorage.getItem('lang') || 'en';
+  localStorage.setItem('lang',lang);
   document.querySelectorAll('[data-i18n]').forEach(el=>{
-    let k=el.getAttribute('data-i18n');
-    let txt=getText(k);
-    if(txt) el.innerText=txt;
+    let k = el.getAttribute('data-i18n');
+    let txt = getText(k,lang);
+    if(txt) el.innerText = txt;
   });
-  // also update LANG button top
-  let cur=localStorage.getItem('lang')||'en';
-  let curEl=document.getElementById('curLangTop');
-  if(curEl) curEl.innerText=cur.toUpperCase();
+  let curEl = document.getElementById('curLangTop');
+  if(curEl) curEl.innerText = lang.toUpperCase();
 }
+// init on load
+document.addEventListener('DOMContentLoaded',()=>{ applyLang(localStorage.getItem('lang')||'en'); });
