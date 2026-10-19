@@ -3353,8 +3353,8 @@ function wdError(){
   const usd=amt*p;
   if(usd<MIN_WD)return 'wd_e_min';
   const b=val('balances');
-  const ear=b?num(b.earnings):null;
-  if(ear!=null&&usd>ear)return 'wd_e_balance';
+    const bal=(a==='USDT')?(b?num(b.earnings):null):((b&&b.holdings)?num(b.holdings[a]):null);
+  if(bal!=null&&amt>bal)return 'wd_e_balance';
   const rc=refCount();
   if(rc!=null&&rc<MIN_REFS)return 'wd_e_refs';
   return null;
