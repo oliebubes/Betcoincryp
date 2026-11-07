@@ -3562,7 +3562,7 @@ function refLink(){
   const l=(r&&typeof r.link==='string')?r.link.trim():'';
   return /^https:\/\/\S+$/.test(l)?l:null;
 }
-const INVITE=link=>'🔥 Join BetCrypto and claim your winnings!\n💰 Trade BTC, ETH, SOL & win big\n👉 Join here: '+link+'\n\nInvite friends & earn 10 USDT per person instantly to your EARNING!';
+const INVITE=link=>'🔥 Join BetCrypto and predict where crypto is going!\n💰 Predict the direction of BTC, ETH and SOL\n🚀 Win up to 6 times your stake, depending on the coin\n👉 Join here: '+link+'\n\nInvite friends & earn 10 USDT per person instantly to your EARNING!';
 function notifPromptHtml(){
   /* Shown only inside Telegram (Bot API 6.9+), only if the user has not already allowed the bot to message them. */
   if(!tg||typeof tg.requestWriteAccess!=='function')return '';
